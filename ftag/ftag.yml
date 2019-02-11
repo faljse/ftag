@@ -1,0 +1,32 @@
+%YAML:1.0
+posServer: "127.0.0.1:1337"
+#posServer: "192.168.75.100:1956"
+videoDevice: "/dev/video0"
+camParamsFile: "cdata/microsoft_hd3000.yml"
+markerSize: 0.034
+#ffmpegCmd: "/opt/ffmpeg/ffmpeg -r 30 -s 640x360 -f v4l2 -i pipe  -f mpegts -c:v mpeg1video -c:a none -b:v 1000k -bf 0 http://localhost:8080/stream/input/1"
+ffmpegCmd: "/opt/ffmpeg/ffmpeg -f rawvideo -pixel_format bgr24 -video_size 1600x1200 -framerate 30 -i pipe:0  -f mpegts -c:v mpeg1video -c:a none -b:v 1000k -bf 0 file:a.ts"
+headless: 0
+xResOut: 640
+xRes: 640
+yRes: 480
+
+
+pointsScale: 0.137
+points: 
+  - {id: 161, x:0, y:0, z:0}
+  - {id: 227, x:0.5, y:0, z:0}
+  - {id: 85, x:1, y:0, z:0}
+  - {id: 214, x:1, y:0.5, z:0}
+  - {id: 244, x:0.75, y:0.25, z:0}
+  - {id: 144, x:0, y:0.5, z:0}
+  - {id: 143, x:0, y:1, z:0}
+  - {id: 90, x:0.5, y:0.5, z:0}
+  - {id: 166, x:0.25, y:0.25, z:0}
+  - {id: 153, x:0.25, y:0.75, z:0}
+  - {id: 219, x:0.5, y:0.1, z:0}
+  - {id: 7, x:0.75, y:0.75, z:0}
+  - {id: 78, x:1, y:1, z:0}
+  
+  
+

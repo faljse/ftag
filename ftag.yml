@@ -1,0 +1,24 @@
+%YAML:1.0
+# posServer: "127.0.0.1:1956"
+# posServer: "192.168.75.100:1956"
+videoDevice: "/dev/video0"
+camParamsFile: "/home/martin/ftag/ftag/cdata/logitech_c920.yml"
+markerSize: 0.028
+# ffmpegCmd: "ffmpeg -r 30 -s 640x360 -f v4l2 -i pipe:0  -f mpegts -c:v mpeg1video -c:a none -b:v 1000k -bf 0 http://localhost:8080/stream/input/1"
+ffmpegCmd: "/opt/ffmpeg/ffmpeg -f rawvideo -pixel_format bgr24 -video_size 1280x720 -framerate 30 -i pipe:0  -f mpegts -c:v mpeg1video -c:a none -b:v 1500k -bf 0 http://localhost:8090/stream/input/1"
+headless: 1
+xResOut: 1280
+xRes: 1920
+yRes: 1080
+
+
+pointsScale: 0.001
+points: 
+  - {id: 115, x:95, y:100, z:0}
+  - {id: 197, x:433, y:95, z:0}
+  - {id: 23, x:705, y:95, z:0}
+  - {id: 85, x:95, y:405, z:0}
+  - {id: 3, x:95, y:605, z:0}
+  
+  
+
