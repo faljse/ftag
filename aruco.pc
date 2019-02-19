@@ -1,6 +1,6 @@
 # pkg-config file for the library
 
-prefix=/usr/local
+prefix=/opt/ftag
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

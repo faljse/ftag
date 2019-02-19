@@ -25,19 +25,37 @@ The views and conclusions contained in the software and documentation are those 
 authors and should not be interpreted as representing official policies, either expressed
 or implied, of Rafael Muñoz Salinas.
 ********************************************************************************************/
+
+
+#ifdef __unix__         
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
+#elif defined(_WIN32) || defined(WIN32) 
+#define OS_Windows
+#include <winsock2.h>
+#include <windows.h>
+#include <ws2tcpip.h>
+#include <stdio.h>
+#include <tchar.h>
+
+#define popen _popen
+#define pclose _pclose
+#define inet_pton InetPton
+#endif
+
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <thread>
-#include <sys/socket.h>
 #include <sys/types.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
+
 #include <mutex>
 #include <condition_variable>
 #include <iomanip>
@@ -53,7 +71,6 @@ or implied, of Rafael Muñoz Salinas.
 #include "../src/aruco.h"
 #include "../src/cvdrawingutils.h"
 #include "params.hpp"
-#include "video.hpp"
 #include "blockingqueue.hpp"
 
 using namespace cv;
@@ -154,7 +171,7 @@ void tcpClient(std::string hostName)
         memset(&serv_addr, '0', sizeof(serv_addr));
         serv_addr.sin_family = AF_INET;
         serv_addr.sin_port = htons(port);
-
+		
         if(inet_pton(AF_INET, hostPart.c_str(), &serv_addr.sin_addr)<=0) {
             printf("\n inet_pton error occured\n");
             continue;
@@ -219,19 +236,6 @@ int main(int argc, char **argv) {
         fp = popen(p.ffmpegCmd.c_str(), "w");
 
         MDetector.setDictionary("ARUCO_MIP_36h12");//sets the dictionary to be employed (ARUCO,APRILTAGS,ARTOOLKIT,etc)
-        // MDetector.sett(MarkerDetector::MarkerDetector::MarkerDetector::CANNY);
-        // MDetector.setThresholdParams(3, 5);
-        // MDetector.setThresholdParamRange(2, 0);
-        // MDetector.setMinMaxSize(0.05, 0.5);
-
-//	if(p.headless==false) {
-//	  //gui requirements : the trackbars to change this parameters
-//	  iThresParam1 = MDetector.getParams()._thresParam1;
-//	  iThresParam2 = MDetector.getParams()._thresParam2;
-//	  cv::namedWindow("in");
-//	  cv::createTrackbar("ThresParam1", "in", &iThresParam1, 25, cvTackBarEvents);
-//	  cv::createTrackbar("ThresParam2", "in", &iThresParam2, 64, cvTackBarEvents);
-//	}
 
         std::thread t1(tcpClient, p.posServer);
         char key = 0;
@@ -344,24 +348,6 @@ int main(int argc, char **argv) {
                     t.rz = xr.at<double>(2);
                     sendq.push(t);
                 }
-                
-                // cv::Mat camPos(4, 1, rtm.type());
-                // camPos.at<double>(0)=0;
-                // camPos.at<double>(1)=0;
-                // camPos.at<double>(2)=0;
-                // camPos.at<double>(3)=0;
-                // cv::Mat xr = rtm * camPos;
-                
-                
-                // cv::Mat n(4, 1, rtm.type());;
-                // normalize(rvec, n);
-                // n.rows = 4;
-                // n.at<double>(3,0) = 0;
-                
-                
-
-
-            
             }
 
             // cout << "\rTheCameraParameters.isValid()" << TheCameraParameters.isValid() << std::endl;

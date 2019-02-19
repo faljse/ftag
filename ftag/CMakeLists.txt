@@ -8,6 +8,10 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 target_link_libraries(ftag Threads::Threads)
 
+if(WIN32)
+  target_link_libraries(ftag wsock32 ws2_32)
+endif()
+
 if (OpenCV_VERSION VERSION_GREATER "3.0.0")
 #    target_link_libraries(image2contourfile     opencv_imgcodecs)
 #    target_link_libraries(extract_chilitag_dict opencv_imgcodecs)

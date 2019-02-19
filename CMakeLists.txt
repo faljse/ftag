@@ -10,6 +10,11 @@ set(CMAKE_CXX_STANDARD 11) # C++11...
 set(CMAKE_CXX_STANDARD_REQUIRED ON) #...is required...
 set(CMAKE_CXX_EXTENSIONS ON) #...with compiler extensions like gnu++11
 
+ 
+# find_package(OpenCV REQUIRED)
+# target_include_directories(main PRIVATE ${OpenCV_INCLUDE_DIRS})
+# target_link_libraries(main PRIVATE ${OpenCV_LIBS})
+
 include(cmake/options.cmake)
 
 include(cmake/findDependencies.cmake)

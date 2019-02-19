@@ -1,6 +1,6 @@
 
-libdir=/home/user/ftag
-includedir=/home/user/ftag/src
+libdir=C:/Users/martin/projects/ftag
+includedir=C:/Users/martin/projects/ftag/src
 
 Name: aruco
 Description: ArUco: a minimal library for Augmented Reality applications based on OpenCv, uninstalled Version.
